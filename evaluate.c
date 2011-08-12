@@ -985,6 +985,10 @@ static struct symbol *evaluate_logical(struct expression *expr)
 			expr_equiv(expr->left, expr->right)) {
 			warning(expr->pos, "identical expressions on both "
 				"sides of '&&'");
+		} else if (expr->op == SPECIAL_LOGICAL_OR &&
+			expr_equiv(expr->left, expr->right)) {
+			warning(expr->pos, "identical expressions on both "
+				"sides of '||'");
 		}
 	}
 
