@@ -1220,6 +1220,12 @@ static struct symbol *evaluate_conditional_expression(struct expression *expr)
 	const char * typediff;
 	int qual;
 
+	if (!preprocessing) {
+		if (expr_equiv(expr->cond_true, expr->cond_false))
+			warning(expr->pos, "identical expressions on both "
+				"branches of '?:'");
+	}
+
 	if (!evaluate_conditional(expr->conditional, 0))
 		return NULL;
 	if (!evaluate_expression(expr->cond_false))
